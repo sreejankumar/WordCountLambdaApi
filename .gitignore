@@ -1,0 +1,11 @@
+/src/apps/WordCount.Api/bin/Debug/netcoreapp3.1/*
+/src/apps/WordCount.Api/obj/Debug/netcoreapp3.1/*
+/src/apps/WordCount.Api/obj/*
+/src/libs/WordCount.Api.Core/bin/Debug/*
+/src/libs/WordCount.Api.Core/obj/Debug/*
+/src/solutions/.idea/.idea.WordCount.Api/.idea/*
+/src/tests/WordCount.Api.Tests/bin/Debug/*
+/src/tests/WordCount.Api.Tests/obj/Debug/*
+/src/tests/WordCount.Api.Tests/obj/*
+/src/apps/WordCount.Api/WordCount.Api.csproj.user
+/src/libs/WordCount.Api.Core/obj/*
