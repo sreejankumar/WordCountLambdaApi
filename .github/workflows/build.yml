@@ -34,3 +34,6 @@ jobs:
       - name: Bulid Project
         run: dotnet build
         working-directory: src/apps/WordCount.Api
+      - name: Test Project
+        run: dotnet test
+        working-directory: src/tests/WordCount.Api.Tests  
