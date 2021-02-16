@@ -9,3 +9,4 @@
 /src/tests/WordCount.Api.Tests/obj/*
 /src/apps/WordCount.Api/WordCount.Api.csproj.user
 /src/libs/WordCount.Api.Core/obj/*
+/src/solutions/WordCount.Api.sln.DotSettings.user
