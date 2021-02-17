@@ -29,7 +29,7 @@ namespace WordCount.Api.Tests.Data
             var config = Configuration.Default.WithDefaultLoader();
             _browsingContext = BrowsingContext.New(config);
 
-            _countWordDataService = new CountWordDataService(_optionsMock.Object, _browsingContext, _loggerMock.Object);
+            _countWordDataService = new CountWordDataService(_optionsMock.Object, _browsingContext);
 
             _optionsMock.Setup(x => x.Value).Returns(new SiteScrapperConfiguration()
             {
@@ -47,16 +47,16 @@ namespace WordCount.Api.Tests.Data
             _countWordDataService = null;
         }
 
-        [Test]
-        public async Task FetchWordsWithCount_Success()
+        [TestCase("Ugudwash",5)]
+        [TestCase("HIAWATHA", 446)]
+        [TestCase("Leicester", 2)]
+        public async Task FetchWordsWithCount_Success(string wordToTest, int count)
         {
-            const string wordToText = "Ugudwash";
-
             var result = await _countWordDataService.FetchWordsWithCount();
 
-            var count = result.TryGetValue(wordToText, out var countValue);
-            count.Should().BeTrue();
-            countValue.Should().Be(5);
+            var exists = result.TryGetValue(wordToTest.ToLower(), out var countValue);
+            exists.Should().BeTrue();
+            countValue.Should().Be(count);
         }
     }
 }

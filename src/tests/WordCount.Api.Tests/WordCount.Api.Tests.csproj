@@ -18,4 +18,16 @@
       <ProjectReference Include="..\..\libs\WordCount.Api.Core\WordCount.Api.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="TestData\TestFileWithNoData.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="TestData\TestFile.docx">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="TestData\TestFile.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

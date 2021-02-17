@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AngleSharp;
+using AngleSharp.Dom;
 using Logging.Extensions;
-using Logging.Interfaces;
 using Microsoft.Extensions.Options;
 using WordCount.Api.Core.Configuration;
 
@@ -14,15 +15,25 @@ namespace WordCount.Api.Core.Data.Service
     {
         private readonly IOptions<SiteScrapperConfiguration> _siteScrapperOptions;
         private readonly IBrowsingContext _browsingContext;
-        private readonly ILogger<CountWordDataService> _logger;
+
+        public static IHtmlCollection<IElement> Collection { get; set; }
+
+        //private readonly ILogger<CountWordDataService> _logger;
+
+        //public CountWordDataService(IOptions<SiteScrapperConfiguration> siteScrapperOptions,
+        //    IBrowsingContext browsingContext, ILogger<CountWordDataService> logger)
+        //{
+        //    _siteScrapperOptions = siteScrapperOptions;
+        //    _browsingContext = browsingContext;
+        //    _logger = logger;
+        //}
 
         public CountWordDataService(IOptions<SiteScrapperConfiguration> siteScrapperOptions,
-            IBrowsingContext browsingContext, ILogger<CountWordDataService> logger)
+            IBrowsingContext browsingContext)
         {
             _siteScrapperOptions = siteScrapperOptions;
             _browsingContext = browsingContext;
-            _logger = logger;
-        }
+            }
 
         /// <summary>
         /// Fetch the words and count from the site in the config.
@@ -30,26 +41,39 @@ namespace WordCount.Api.Core.Data.Service
         /// <returns></returns>
         public async Task<IDictionary<string, int>> FetchWordsWithCount()
         {
-            var wordDictionary = new Dictionary<string, int>();
-
-            _logger.LogDebug($"Fetching data from the Site Address: {_siteScrapperOptions.Value.SiteAddress}");
-            var document = await _browsingContext.OpenAsync(_siteScrapperOptions.Value.SiteAddress);
-            _logger.LogDebug("Finished fetching the data");
-
-            var elements = document.QuerySelectorAll(_siteScrapperOptions.Value.TextContentTag);
-
-            foreach (var element in elements)
+            if (Collection == null)
             {
-                var innerHtml = element.InnerHtml;
-                if (!innerHtml.HasValue()) continue;
-                var matches = Regex.Replace(innerHtml, "[^A-Za-z ]", string.Empty);
+                //_logger.LogDebug($"Fetching data from the Site Address: {_siteScrapperOptions.Value.SiteAddress}");
+                var document = await _browsingContext.OpenAsync(_siteScrapperOptions.Value.SiteAddress);
+                //  _logger.LogDebug("Finished fetching the data");
 
-                wordDictionary = matches.Split(' ')
-                    .GroupBy(s => s)
-                    .Select(g => new {Word = g.Key, Count = g.Count()}).ToDictionary(t => t.Word, t => t.Count);
+                Collection = document.QuerySelectorAll(_siteScrapperOptions.Value.TextContentTag);
             }
 
-            return wordDictionary;
+            return (from element in Collection
+                    select element.InnerHtml
+                into innerHtml
+                where innerHtml.HasValue()
+                let wordRegex = new Regex(@"\p{L}+")
+                select wordRegex.Matches(innerHtml).Select(c => c.Value.ToLower())
+                into wordsSplits
+                select CountOccurrences(wordsSplits, StringComparer.CurrentCultureIgnoreCase)).FirstOrDefault();
+        }
+
+        public static IDictionary<string, int> CountOccurrences(IEnumerable<string> items, IEqualityComparer<string> comparer)
+        {
+            var counts = new Dictionary<string, int>(comparer);
+
+            foreach (var t in items)
+            {
+                if (!counts.TryGetValue(t, out var count))
+                {
+                    count = 0;
+                }
+                counts[t] = count + 1;
+            }
+
+            return counts;
         }
 
         public void Dispose()
