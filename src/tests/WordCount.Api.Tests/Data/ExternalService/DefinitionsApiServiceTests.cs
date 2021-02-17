@@ -13,18 +13,18 @@ using Moq.Protected;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using WordCount.Api.Core.Configuration;
+using WordCount.Api.Core.Data.ExternalService;
 using WordCount.Api.Core.Data.Models;
-using WordCount.Api.Core.Data.Service;
 
-namespace WordCount.Api.Tests.Data
+namespace WordCount.Api.Tests.Data.ExternalService
 {
     [TestFixture]
-    public class DefinitionsDataServiceTests
+    public class DefinitionsApiServiceTests
     {
         private Mock<IOptions<DefinitionApiConfiguration>> _optionsMock;
         private Mock<IHttpClientFactory> _clientFactoryMock;
-        private IDefinitionsDataService _definitionsDataService;
-        private Mock<ILogger<DefinitionsDataService>> _loggerMock;
+        private IDefinitionsApiService _definitionsDataService;
+        private Mock<ILogger<DefinitionsApiService>> _loggerMock;
         private Mock<HttpMessageHandler> _messageHandlerMock;
         private MockRepository _repository;
 
@@ -34,7 +34,7 @@ namespace WordCount.Api.Tests.Data
             // Initialize the mocks
             _repository = new MockRepository(MockBehavior.Strict);
             _optionsMock = _repository.Create<IOptions<DefinitionApiConfiguration>>();
-            _loggerMock = _repository.Create<ILogger<DefinitionsDataService>>();
+            _loggerMock = _repository.Create<ILogger<DefinitionsApiService>>();
             _messageHandlerMock = _repository.Create<HttpMessageHandler>();
             _clientFactoryMock = _repository.Create<IHttpClientFactory>();
 
@@ -50,7 +50,7 @@ namespace WordCount.Api.Tests.Data
             _clientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
             _definitionsDataService =
-                new DefinitionsDataService(_optionsMock.Object, _clientFactoryMock.Object, _loggerMock.Object);
+                new DefinitionsApiService(_optionsMock.Object, _clientFactoryMock.Object,_loggerMock.Object);
         }
 
         [TearDown]

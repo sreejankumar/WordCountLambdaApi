@@ -1,0 +1,221 @@
+﻿[
+  {
+    "word": "the",
+    "count": 4180,
+    "definitions": [
+      {
+        "type": "determiner",
+        "definition": "denoting one or more people or things already mentioned or assumed to be common knowledge.",
+        "example": "what's the matter?",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "determiner",
+        "definition": "used to point forward to a following qualifying or defining clause or phrase.",
+        "example": "the fuss that he made of her",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "determiner",
+        "definition": "used to make a generalized reference to something rather than identifying a particular instance.",
+        "example": "he taught himself to play the violin",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "determiner",
+        "definition": "enough of (a particular thing).",
+        "example": "he hoped to publish monthly, if only he could find the money",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "determiner",
+        "definition": "(pronounced stressing âtheâ) used to indicate that someone or something is the best known or most important of that name or type.",
+        "example": "he was <b>the</b> hot young piano prospect in jazz",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "determiner",
+        "definition": "used adverbially with comparatives to indicate how one amount or degree of something varies in relation to another.",
+        "example": "<b>the more</b> she thought about it, <b>the more</b> devastating it became",
+        "imageUrl": null,
+        "emoji": null
+      }
+    ]
+  },
+  {
+    "word": "of",
+    "count": 1914,
+    "definitions": [
+      {
+        "type": "preposition",
+        "definition": "expressing the relationship between a part and a whole.",
+        "example": "tip of the iceberg",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "preposition",
+        "definition": "indicating an association between two entities, typically one of belonging, in which the first is the head of the phrase and the second is something associated with it.",
+        "example": "a friend of mine",
+        "imageUrl": null,
+        "emoji": null
+      }
+    ]
+  },
+  {
+    "word": "and",
+    "count": 1702,
+    "definitions": [
+      {
+        "type": "abbreviation",
+        "definition": "Andorra (international vehicle registration).",
+        "example": null,
+        "imageUrl": null,
+        "emoji": null
+      }
+    ]
+  },
+  {
+    "word": "in",
+    "count": 787,
+    "definitions": [
+      {
+        "type": "noun",
+        "definition": "the chemical element of atomic number 49, a soft silvery-white metal occurring naturally in association with zinc and some other metals.",
+        "example": null,
+        "imageUrl": null,
+        "emoji": null
+      }
+    ]
+  },
+  {
+    "word": "s",
+    "count": 691,
+    "definitions": []
+  },
+  {
+    "word": "a",
+    "count": 628,
+    "definitions": []
+  },
+  {
+    "word": "with",
+    "count": 603,
+    "definitions": [
+      {
+        "type": "preposition",
+        "definition": "in the same direction as.",
+        "example": "marine mammals generally swim with the current",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "preposition",
+        "definition": "having or possessing (something).",
+        "example": "a flower-sprigged blouse with a white collar",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "preposition",
+        "definition": "accompanied by (another person or thing).",
+        "example": "a nice steak with a bottle of red wine",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "preposition",
+        "definition": "indicating the instrument used to perform an action.",
+        "example": "cut the fish with a knife",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "preposition",
+        "definition": "in opposition to.",
+        "example": "a row broke out with another man",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "preposition",
+        "definition": "indicating the manner or attitude in which a person does something.",
+        "example": "the people shouted with pleasure",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "preposition",
+        "definition": "indicating responsibility.",
+        "example": "leave it with me",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "preposition",
+        "definition": "in relation to.",
+        "example": "my father will be angry with me",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "preposition",
+        "definition": "employed by.",
+        "example": "she's with the Inland Revenue now",
+        "imageUrl": null,
+        "emoji": null
+      },
+      {
+        "type": "preposition",
+        "definition": "indicating separation or removal from something.",
+        "example": "to part with one's dearest possessions",
+        "imageUrl": null,
+        "emoji": null
+      }
+    ]
+  },
+  {
+    "word": "his",
+    "count": 580,
+    "definitions": [
+      {
+        "type": "determiner",
+        "definition": "belonging to or associated with a male person or animal previously mentioned or easily identified.",
+        "example": "James sold his business",
+        "imageUrl": null,
+        "emoji": null
+      }
+    ]
+  },
+  {
+    "word": "to",
+    "count": 552,
+    "definitions": [
+      {
+        "type": "adverb",
+        "definition": "so as to be closed or nearly closed.",
+        "example": "he pulled the door to behind him",
+        "imageUrl": null,
+        "emoji": null
+      }
+    ]
+  },
+  {
+    "word": "he",
+    "count": 475,
+    "definitions": [
+      {
+        "type": "pronoun",
+        "definition": "used to refer to a man, boy, or male animal previously mentioned or easily identified.",
+        "example": "everyone liked my fatherâhe was the perfect gentleman",
+        "imageUrl": null,
+        "emoji": null
+      }
+    ]
+  }
+]

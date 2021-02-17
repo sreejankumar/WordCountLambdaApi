@@ -10,3 +10,8 @@
 /src/apps/WordCount.Api/WordCount.Api.csproj.user
 /src/libs/WordCount.Api.Core/obj/*
 /src/solutions/WordCount.Api.sln.DotSettings.user
+/src/tests/WordCount.Api.e2e/bin/*
+/src/tests/WordCount.Api.e2e/obj/Debug/*
+/src/tests/WordCount.Api.e2e/obj/*
+/src/solutions/.vs/WordCount.Api/v16/*
+/src/solutions/.vs/WordCount.Api/*

@@ -5,24 +5,25 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Api.Core.Exceptions;
+using Logging.Interfaces;
 using Microsoft.Extensions.Options;
 using WordCount.Api.Core.Configuration;
 using WordCount.Api.Core.Data.Models;
 using WordCount.Api.Core.Utility;
 
-namespace WordCount.Api.Core.Data.Service
+namespace WordCount.Api.Core.Data.ExternalService
 {
-    public class DefinitionsDataService : IDefinitionsDataService
+    public class DefinitionsApiService : IDefinitionsApiService
     {
         private readonly HttpClient _httpClient;
         private readonly IOptions<DefinitionApiConfiguration> _definitionApiConfiguration;
-       // private readonly ILogger<DefinitionsDataService> _logger;
+        private readonly ILogger<DefinitionsApiService> _logger;
 
-        public DefinitionsDataService(IOptions<DefinitionApiConfiguration> definitionApiConfiguration,
-            IHttpClientFactory httpClientFactory)//, ILogger<DefinitionsDataService> logger)
+        public DefinitionsApiService(IOptions<DefinitionApiConfiguration> definitionApiConfiguration,
+            IHttpClientFactory httpClientFactory, ILogger<DefinitionsApiService> logger)
         {
             _definitionApiConfiguration = definitionApiConfiguration;
-            //_logger = logger;
+            _logger = logger;
             _httpClient = httpClientFactory.CreateClient();
         }
 
@@ -39,13 +40,13 @@ namespace WordCount.Api.Core.Data.Service
             {
                 var url = $"{_definitionApiConfiguration.Value.Address}{searchWord}";
 
-               // _logger.LogDebug($"Making API Request to {url}");
+               _logger.LogDebug($"Making API Request to {url}");
                 _httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Token", _definitionApiConfiguration.Value.Token);
                 var response = await _httpClient.GetAsync(url);
 
                 var statusCode = (int) response.StatusCode;
-               // _logger.LogDebug($"Finished the request and got a StatusCode {statusCode} ");
+                _logger.LogDebug($"Finished the request and got a StatusCode {statusCode} ");
 
                 switch (response.StatusCode)
                 {
@@ -66,17 +67,16 @@ namespace WordCount.Api.Core.Data.Service
             }
             catch (HttpRequestException e)
             {
-               // _logger.LogError("HttpRequestException occured", e);
+                _logger.LogError("HttpRequestException occurred", e);
             }
             catch (ExternalServiceException e)
             {
-               // _logger.LogError("ExternalServiceException occured", e);
+                _logger.LogError("ExternalServiceException occurred", e);
             }
             catch (Exception e)
             {
-               // _logger.LogError("Exception occured", e);
+                _logger.LogError("Exception occurred", e);
             }
-
             return apiResponse;
         }
     }
