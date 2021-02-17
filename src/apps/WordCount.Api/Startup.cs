@@ -86,7 +86,7 @@ namespace WordCount.Api
             //    .AddCustomHeader("x-backend-server", Environment.MachineName));
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Word Count API (v1.0)"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Word Count API (v1.0.0)"));
 
             app.UseEndpoints(endpoints =>
             {
