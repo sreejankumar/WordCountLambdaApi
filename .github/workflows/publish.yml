@@ -35,14 +35,14 @@ jobs:
       - name: Test Project
         run: dotnet test
         working-directory: src/tests/WordCount.Api.Tests          
-    - name: .NET Lambda build and deploy
-      uses: evalytica/dotnet-lambda-actions/deploy@v0.1.0
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{ secrets.AWS_Region }}
-        DOTNET_LAMBDA_PACKAGE_NAME: WordCount.Api.zip
-        DOTNET_LAMBDA_FUNCTION_HANDLER: WordCount.Api::WordCount.Api.LambdaEntryPoint::FunctionHandlerAsync
-        DOTNET_LAMBDA_FUNCTION_NAME: word-count-lambda-api
-        DOTNET_LAMBDA_S3_LOCATION: word-count-api/folder/word-count-lambda-api
-        DOTNET_LAMBDA_WORKING_DIR: src/apps/WordCount.Api
+      - name: .NET Lambda build and deploy
+        uses: evalytica/dotnet-lambda-actions/deploy@v0.1.0
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_Region }}
+          DOTNET_LAMBDA_PACKAGE_NAME: WordCount.Api.zip
+          DOTNET_LAMBDA_FUNCTION_HANDLER: WordCount.Api::WordCount.Api.LambdaEntryPoint::FunctionHandlerAsync
+          DOTNET_LAMBDA_FUNCTION_NAME: word-count-lambda-api
+          DOTNET_LAMBDA_S3_LOCATION: word-count-api/folder/word-count-lambda-api
+          DOTNET_LAMBDA_WORKING_DIR: src/apps/WordCount.Api
