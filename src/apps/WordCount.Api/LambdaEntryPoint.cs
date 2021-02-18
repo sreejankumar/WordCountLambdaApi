@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace WordCount.Api
@@ -44,6 +45,11 @@ namespace WordCount.Api
         /// <param name="builder"></param>
         protected override void Init(IHostBuilder builder)
         {
+            builder.ConfigureAppConfiguration((hostingConfig, config) =>
+            {
+                config.AddJsonFile("appsettings.json");
+                config.AddEnvironmentVariables();
+            });
         }
     }
 }
