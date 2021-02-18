@@ -15,3 +15,6 @@
 /src/tests/WordCount.Api.e2e/obj/*
 /src/solutions/.vs/WordCount.Api/v16/*
 /src/solutions/.vs/WordCount.Api/*
+/src/apps/WordCount.Api/bin/Release/*
+/src/libs/WordCount.Api.Core/bin/Release/*
+/terraform/*
