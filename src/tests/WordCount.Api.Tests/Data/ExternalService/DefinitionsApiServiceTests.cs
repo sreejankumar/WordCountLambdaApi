@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Api.Core.Exceptions;
 using FluentAssertions;
 using Logging.Interfaces;
 using Microsoft.Extensions.Options;
@@ -50,7 +51,7 @@ namespace WordCount.Api.Tests.Data.ExternalService
             _clientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
             _definitionsDataService =
-                new DefinitionsApiService(_optionsMock.Object, _clientFactoryMock.Object,_loggerMock.Object);
+                new DefinitionsApiService(_optionsMock.Object, _clientFactoryMock.Object, _loggerMock.Object);
         }
 
         [TearDown]
@@ -90,7 +91,7 @@ namespace WordCount.Api.Tests.Data.ExternalService
                 "SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(
                 response);
 
-            var results = await _definitionsDataService.FetchDefinitionsAsync(value);
+            var results = await _definitionsDataService.FetchDefinitionsAsync(value, new CancellationToken());
 
             results.Should().NotBeNull();
             results.Word.Should().Be(value);
@@ -152,14 +153,8 @@ namespace WordCount.Api.Tests.Data.ExternalService
                 "SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(
                 response);
 
-            var results = await _definitionsDataService.FetchDefinitionsAsync("hello");
-
-            results.Should().NotBeNull();
-            results.Word.Should().BeNullOrEmpty();
-            results.Pronunciation.Should().BeNullOrEmpty();
-            results.HttpCode.Should().Be(0);
-            results.Message.Should().BeNullOrEmpty();
-            results.Definitions.Should().BeNullOrEmpty();
+            await _definitionsDataService.Invoking(x => x.FetchDefinitionsAsync("hello")).Should()
+                .ThrowAsync<ExternalServiceException>();
         }
 
         [Test]
@@ -170,14 +165,8 @@ namespace WordCount.Api.Tests.Data.ExternalService
                     "SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
                 .ThrowsAsync(new HttpRequestException());
 
-            var results = await _definitionsDataService.FetchDefinitionsAsync("hello");
-
-            results.Should().NotBeNull();
-            results.Word.Should().BeNullOrEmpty();
-            results.Pronunciation.Should().BeNullOrEmpty();
-            results.HttpCode.Should().Be(0);
-            results.Message.Should().BeNullOrEmpty();
-            results.Definitions.Should().BeNullOrEmpty();
+            await _definitionsDataService.Invoking(x => x.FetchDefinitionsAsync("hello")).Should()
+                .ThrowAsync<ExternalServiceException>();
         }
 
         [Test]
@@ -188,14 +177,8 @@ namespace WordCount.Api.Tests.Data.ExternalService
                     "SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
                 .ThrowsAsync(new Exception());
 
-            var results = await _definitionsDataService.FetchDefinitionsAsync("hello");
-
-            results.Should().NotBeNull();
-            results.Word.Should().BeNullOrEmpty();
-            results.Pronunciation.Should().BeNullOrEmpty();
-            results.HttpCode.Should().Be(0);
-            results.Message.Should().BeNullOrEmpty();
-            results.Definitions.Should().BeNullOrEmpty();
+            await _definitionsDataService.Invoking(x => x.FetchDefinitionsAsync("hello")).Should()
+                .ThrowAsync<ExternalServiceException>();
         }
     }
 }
