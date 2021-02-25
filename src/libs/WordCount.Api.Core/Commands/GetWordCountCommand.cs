@@ -24,7 +24,7 @@ namespace WordCount.Api.Core.Commands
 
         public override Task<List<WordCountApiResponse>> Run(WordCountSearchParameter input)
         {
-            return _wordCounterService.ProcessWordsWithDefinitionsAsync(input.Text, input.Limit);
+            return _wordCounterService.ProcessWordsWithDefinitions(input.Text, input.Limit);
         }
     }
 }

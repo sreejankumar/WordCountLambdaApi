@@ -130,7 +130,7 @@ namespace WordCount.Api.Tests.Commands
             };
             wordCountSearchParameter.Validate();
 
-            _wordCounterServiceMock.Setup(x => x.ProcessWordsWithDefinitionsAsync(It.IsAny<string>(), It.IsAny<int>()))
+            _wordCounterServiceMock.Setup(x => x.ProcessWordsWithDefinitions(It.IsAny<string>(), It.IsAny<int>()))
                 .ReturnsAsync(new List<WordCountApiResponse>
                 {
                     new WordCountApiResponse

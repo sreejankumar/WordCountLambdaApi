@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Logging.Interfaces;
 using Moq;
 using NUnit.Framework;
 using WordCount.Api.Core.Data.ExternalService;
@@ -19,16 +21,18 @@ namespace WordCount.Api.Tests.Service
         private Mock<IDefinitionsApiService> _definitionsApiServiceMock;
         private Mock<IWordProcessorService> _wordProcessorServiceMock;
         private IWordCounterService _wordCounterService;
+        private Mock<ILogger<WordCounterService>> _loggerMock;
 
         [SetUp]
         public void Setup()
         {
             _mockRepository = new MockRepository(MockBehavior.Strict);
             _definitionsApiServiceMock = _mockRepository.Create<IDefinitionsApiService>();
+            _loggerMock = _mockRepository.Create<ILogger<WordCounterService>>();
             _wordProcessorServiceMock = _mockRepository.Create<IWordProcessorService>();
             
             _wordCounterService = new WordCounterService(_definitionsApiServiceMock.Object,
-                _wordProcessorServiceMock.Object);
+                _wordProcessorServiceMock.Object, _loggerMock.Object);
         }
 
         [TearDown]
@@ -52,7 +56,7 @@ namespace WordCount.Api.Tests.Service
             var responses = GetRandomApiResponsesFromWordDictionary(expected);
 
             _definitionsApiServiceMock.SetupSequence(x =>
-                    x.FetchDefinitionsAsync(It.IsAny<string>()))
+                    x.FetchDefinitionsAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(responses[0])
                 .ReturnsAsync(responses[1])
                 .ReturnsAsync(responses[2])
@@ -64,7 +68,7 @@ namespace WordCount.Api.Tests.Service
                 .ReturnsAsync(responses[8])
                 .ReturnsAsync(responses[9]);
 
-            var countApiResponses = await _wordCounterService.ProcessWordsWithDefinitionsAsync("text", 10);
+            var countApiResponses = await _wordCounterService.ProcessWordsWithDefinitions("text", 10);
 
             var results = countApiResponses.ToDictionary(x => x.Word, x => x.Count);
 
@@ -101,7 +105,7 @@ namespace WordCount.Api.Tests.Service
             };
 
             _definitionsApiServiceMock.SetupSequence(x =>
-                    x.FetchDefinitionsAsync(It.IsAny<string>()))
+                    x.FetchDefinitionsAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response)
                 .ReturnsAsync(new ApiResponse())
                 .ReturnsAsync(new ApiResponse())
@@ -113,7 +117,7 @@ namespace WordCount.Api.Tests.Service
                 .ReturnsAsync(new ApiResponse())
                 .ReturnsAsync(new ApiResponse());
 
-            var countApiResponses = await _wordCounterService.ProcessWordsWithDefinitionsAsync("text", 10);
+            var countApiResponses = await _wordCounterService.ProcessWordsWithDefinitions("text", 10);
 
             var results = countApiResponses.ToDictionary(x => x.Word, x => x.Count);
 
